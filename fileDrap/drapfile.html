@@ -36,12 +36,14 @@
             },false);
 
             $div.addEventListener('dragover',(ev)=>{
-                console.log('ondragover')
+                console.log('ondragover');
+                // 需要阻止默认行为
                 ev.preventDefault();
             },false);
 
             $div.addEventListener('drop',(ev)=>{
                 console.log('drop',ev.dataTransfer.files);
+                // 需要阻止默认行为
                 ev.preventDefault();
 
                 // 拖拽进来的文件

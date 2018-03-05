@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>饼状图-canvas</title>
+    <style>
+        body {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" height="800" width="800"></canvas>
+
+    <script>
+        // 角度 换算为 弧度
+        function d2a(ang) {
+            return ang * Math.PI / 180;
+        }
+
+        // 弧度 换算为 角度
+        function a2d(ang) {
+            return ang * 180 / Math.PI;
+        }
+
+        window.onload = () => {
+            let canvas = document.getElementById('canvas');
+            let gd = canvas.getContext('2d');
+
+            let cx = 400, cy = 300, r = 150;
+
+
+            function pie(startAng,endAng,color) {
+
+                gd.beginPath();
+                gd.moveTo(cx, cy);
+
+                let x = cx + Math.sin(d2a(startAng)) * r;
+                let y = cy - Math.cos(d2a(startAng)) * r;
+
+                gd.lineTo(x, y);
+
+                gd.arc(cx, cy, r, d2a(startAng - 90), d2a(endAng - 90), false);
+
+                gd.closePath();
+
+                gd.stroke();
+
+                gd.fillStyle = color;
+                gd.fill();
+            }
+
+            // 1.数据
+            let data = [111,222,333,444];
+            let colors = ['#f0f','#f00','#ff0','#0ff'];
+
+            // 2.总和
+            let sum = data.reduce((tem,item,index) => tem + item);
+
+            // 3. 数据占比 -> 角度占比
+            let angs = data.map((item,index) => 360*item/sum);
+
+            // 4.画 ->　上一个的结束角　就是下一个开始的角度
+            let  lastAng  = 0;
+            angs.forEach((ang,index) => {
+                pie(lastAng,lastAng+ang,colors[index]);
+                
+                lastAng+=ang;
+            });
+        }
+    </script>
+</body>
+
+</html>

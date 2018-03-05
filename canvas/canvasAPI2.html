@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="cs" width="800" height="800"></canvas>
+
+    <script>
+        window.onload = () => {
+            let canvas = document.getElementById('cs');
+            let cs = canvas.getContext('2d');
+
+            // canvas里的图形 只要画完了 不能修改 (canvas不会保存任何图形信息)
+            // 1.动画-- 擦了重画 (全部重画，因为擦了多少都一样的)
+            // 2.事件需要自己模拟--碰撞检测
+
+            // 简单的运动
+            // let left = 20;
+            // setInterval(() => {
+            //     cs.clearRect(0,0,canvas.width,canvas.height);
+            //     left+= 10;
+            //     cs.strokeRect(left, 200, 100, 100);
+
+            // }, 20);
+
+            // 矩形悬浮 更改边框颜色
+            // let l = 100, t = 100, w = 100, h = 100;
+            // cs.strokeRect(l,t,w,h);
+
+            // canvas.onmousemove = function(ev){
+            //     cs.clearRect(0,0,canvas.width,canvas.height);
+
+            //     if(ev.offsetX > l && ev.offsetX < l + w && ev.offsetY > t && ev.offsetY < t + h){
+            //         cs.strokeStyle = '#f0f';
+            //         cs.strokeRect(l,t,w,h);
+            //     }else{
+            //         cs.strokeStyle = '#000';
+            //         cs.strokeRect(l,t,w,h);
+            //     }
+            // }
+
+            // 圆形
+            let cx = 300, cy = 300, r = 200;
+
+            // cs.arc(cx,cy,r,0,2*Math.PI);
+            // cs.stroke();
+
+            canvas.onmousemove = function (ev) {
+                let a = ev.offsetX - cx;
+                let b = ev.offsetY - cy;
+                let distance = Math.sqrt(a * a + b * b);
+
+                //  cs.clearRect(0,0,canvas.width,canvas.height);
+                cs.beginPath();
+                cs.arc(cx, cy, r, 0, 2 * Math.PI);
+
+                if (distance < r) {
+                    cs.fillStyle = '#f0f';
+                } else {
+                    cs.fillStyle = '#ff0';
+                }
+                cs.fill();
+            }
+
+
+        }
+    </script>
+</body>
+
+</html>
