@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>文件拖拽</title>
+    <style>
+    #div{
+        width: 400px;
+        height: 200px; border: 1px solid #000; background-color: #e5e5e5;
+        text-align: center; line-height: 200px; margin: 40px auto;
+    }
+    </style>
+</head>
+<body>
+    
+    <div id="div">
+        文件拖拽至此
+    </div>
+    <img src="" id="imgs" alt="">
+
+    <script>
+        window.onload = ()=>{
+            let $div = document.getElementById('div');
+            let $imgs = document.getElementById('imgs');
+
+            $div.addEventListener('dragenter',()=>{
+                console.log('ondragenter');
+                $div.innerHTML = '释放鼠标';
+            },false);
+
+            $div.addEventListener('dragleave',()=>{
+                console.log('ondragleaver')
+                $div.innerHTML = '文件拖拽至此';
+            },false);
+
+            $div.addEventListener('dragover',(ev)=>{
+                console.log('ondragover')
+                ev.preventDefault();
+            },false);
+
+            $div.addEventListener('drop',(ev)=>{
+                console.log('drop',ev.dataTransfer.files);
+                ev.preventDefault();
+
+                // 拖拽进来的文件
+                let filesData = ev.dataTransfer.files[0];
+
+                // 读取
+                let readFile = new FileReader();
+
+                readFile.onload = function(){
+                    console.log('onload',this.result)
+                    // $imgs.src = this.result;
+                }
+
+                readFile.onerror = ()=>{
+                    console.log('onerror')
+
+                }
+
+                // 读取文本
+                // readFile.readAsText(filesData);
+
+                // 读取图片 base64 
+                readFile.readAsDataURL(filesData);
+
+                // readFile.readAsArrayBuffer(); 原始二进制数据  可以进行编辑 但是不试用 因为js等高级语言不适合处理二进制数据
+
+                // readFile.readAsBinaryString() 二进制的文本数据 可以进行 上传
+
+            },false);
+
+        }
+    </script>
+</body>
+</html>

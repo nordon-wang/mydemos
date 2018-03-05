@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="cs" width="500" height="500"></canvas>
+
+    <script>
+        window.onload = ()=>{
+            let canvas = document.getElementById('cs');
+            let cs = canvas.getContext('2d');
+
+            // gd.moveTo(100,100);
+            // gd.lineTo(200,200);
+            // gd.lineTo(200,300);
+            // gd.closePath();
+
+            // gd.strokeStyle = 'red';
+
+            // gd.stroke();
+
+            // gd.fillStyle = '#f0f';
+            // gd.fill();
+            
+
+            // 矩形
+            
+            // 方式一
+            // cs.rect(200,200,200,200);
+            // cs.strokeStyle = '#f0f';
+            // cs.stroke();
+
+            // 方式2
+            // cs.strokeStyle = '#f0f';
+            // cs.strokeRect(200,200,200,200);
+
+            // 方式3
+            // cs.fillStyle = '#f00';
+            // cs.fillRect(200,200,200,200);
+
+            // 圆形
+
+            cs.arc(200,200,100,0,360*Math.PI/180,true);
+            cs.stroke();
+            
+        }
+    </script>
+</body>
+</html>

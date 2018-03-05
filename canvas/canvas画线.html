@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    body{
+        text-align: center;
+    }
+    </style>
+</head>
+<body>
+    <p><input type="color" id="color"></p>
+    <canvas id="canvas" width="800" height="500" > </canvas>
+
+    <script>
+        window.onload = function(){
+
+            let $colorObj = document.getElementById('color');
+
+            let $color = '#f0f';
+
+            $colorObj.onchange = function(){
+                console.log(this.value);
+                $color =  this.value;
+            }
+
+            let canvas = document.getElementById('canvas');
+            let cs = canvas.getContext('2d');
+
+            let lastX,lastY;
+
+            canvas.onmousedown = function(ev){
+                lastX = ev.offsetX;
+                lastY = ev.offsetY;
+
+                canvas.onmousemove = function(ev){
+                    cs.beginPath();
+                    cs.moveTo(lastX,lastY);
+                    cs.lineTo(ev.offsetX,ev.offsetY);
+
+                    lastX = ev.offsetX;
+                    lastY = ev.offsetY;
+                    
+                    cs.strokeStyle = $color;
+                    cs.stroke();
+                }
+
+                canvas.onmouseup = function(){
+                    canvas.onmousemove = null;
+                    canvas.onmouseup = null;
+                }
+            }
+
+        }
+    </script>
+</body>
+</html>

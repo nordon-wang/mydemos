@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=h1, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>传统ajax</title>
+</head>
+
+<body>
+    <h1>注册</h1>
+
+    <p>user: <input type="text" id="user" name="" value=""></p>
+    <p>password: <input type="password" id="password" name="" value=""></p>
+    <input type="button" value="注册" id="btn">
+    <input type="button" value="登陆" id="btn2">
+
+    <script src="jquery.min.js"></script>
+    <script>
+        $(function () {
+            // 注册
+            $('#btn').click(function () {
+                console.log({user:$('#user').val(),pass:$('#password').val()})
+                $.ajax({
+                    url:'/reg',
+                    data:{user:$('#user').val(),pass:$('#password').val()},
+                    dataType:'json',
+                    success(res){
+                        if(res.code){
+                            alert('注册失败' + res.msg);
+                        }else{
+                            alert('注册成功');
+                        }
+                    },
+                    error(){
+                        alert('注册失败--服务器错误');
+                    }
+                })
+            });
+
+            // 登陆
+            $('#btn2').click(function () {
+                console.log({user:$('#user').val(),pass:$('#password').val()})
+                $.ajax({
+                    url:'/login',
+                    data:{user:$('#user').val(),pass:$('#password').val()},
+                    dataType:'json',
+                    success(res){
+                        if(res.code){
+                            alert('登陆失败' + res.msg);
+                        }else{
+                            alert('登陆成功');
+                        }
+                    },
+                    error(){
+                        alert('登陆失败---服务器错误');
+                    }
+                })
+            })
+        });
+    </script>
+</body>
+
+</html>

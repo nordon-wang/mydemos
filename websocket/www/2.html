@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=h1, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>websocket</title>
+    <style>
+    .mine{
+        color: #f0f;
+    }
+    </style>
+</head>
+
+<body>
+    <h1>注册</h1>
+
+    <p>user: <input type="text" id="user" name="" value=""></p>
+    <p>password: <input type="password" id="password" name="" value=""></p>
+    <textarea rows="3" cols="3" id="msgs"></textarea>
+    <input type="button" value="注册" id="btn">
+    <input type="button" value="登陆" id="btn2">
+    <input type="button" value="留言" id="btn3">
+
+    <ul id="ulCon">
+        <!--<li>
+            <h4>11</h4>
+            <p>11111111</p>
+        </li>-->
+    </ul>
+
+    <script src="jquery.min.js"></script>
+    <script src="http://192.168.1.6:8080/socket.io/socket.io.js"></script>
+    <!--  为了在局域网中使用将localhost修改为ip地址  否则局域网中不能使用  -->
+    <!--<script src="http://localhost:8080/socket.io/socket.io.js"></script>-->
+    <!--使用本地文件也可以-->
+    <!--<script src="socket.js"></script>-->
+    <script>
+        window.onload = function () {
+            let sock = io.connect('ws://192.168.1.6:8080');
+            // let sock = io.connect('ws://localhost:8080');
+
+            // 当前用户名
+            let cur_username = '';
+
+            // 获取元素
+            let regBtn = document.getElementById('btn');
+            let loginBtn = document.getElementById('btn2');
+            let sendBtn = document.getElementById('btn3');
+            let $ul = document.getElementById('ulCon');
+            let $user = document.getElementById('user');
+            let $pass = document.getElementById('password');
+            let $msgs = document.getElementById('msgs');
+
+            // 注册
+            regBtn.addEventListener('click', () => {
+                sock.emit('reg', $user.value, $pass.value);
+            });
+            // 注册结果
+            sock.on('regRes', (code, msg) => {
+                alert(code + msg);
+            });
+
+            // 登陆
+            loginBtn.addEventListener('click', () => {
+                sock.emit('login', $user.value, $pass.value);
+            });
+            // 登陆结果
+            sock.on('loginRes', (code, msg) => {
+                if(code){
+                    alert(code + msg);
+                }else{
+                    alert('登陆成功');
+                    cur_username = $user.value;
+                }
+            });
+
+            // 留言结果
+            sock.on('msgRes', (code, msg) => {
+                if(code){
+                    alert(code+msg);
+                }else{
+                    let $li = document.createElement('li');
+                    $li.className = 'mine';
+                    $li.innerHTML = `<h4>${cur_username}</h4><p>${$msgs.value}</p>`;
+                    $msgs.value = '';
+                    $ul.appendChild($li);
+                    alert('留言成功');
+                }
+            });
+
+            sock.on('msg', (username,txt) => {
+                let $li = document.createElement('li');
+                $li.innerHTML = `<h4>${username}</h4><p>${txt}</p>`;
+                $ul.appendChild($li);
+            })
+
+            // 留言 $msgs
+            sendBtn.addEventListener('click', () => {
+                sock.emit('msg',$msgs.value);
+            });
+
+
+            // 测试
+            document.onclick = function () {
+                sock.emit('a', 1, 2);
+            }
+
+        }
+    </script>
+</body>
+
+</html>
