@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/jquery-1.11.3.js"></script>
+    <script type="text/javascript" src="../js/jquery-ui.js"></script>
+</head>
+<style>
+    .box{
+        width: 100px;
+        height: 100px;
+        border: 1px #ccc solid;
+    }
+</style>
+<body>
+<div class="box"></div>
+</body>
+</html>
+<script>
+
+    $('.box').resizable({
+        containment: "parent",
+        /*stop:function (event, ui) {
+         that.ui.width = ui.size.width * that.Zoom;
+         that.ui.height = ui.size.height * that.Zoom;
+
+         }*/
+    })
+</script>

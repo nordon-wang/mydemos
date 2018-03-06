@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    .a {
+        grid-area: header;
+    }
+
+    .b {
+        grid-area: main;
+    }
+
+    .c {
+        grid-area: slider;
+    }
+
+    .d {
+        grid-area: footer;
+    }
+
+    div#date {
+        display: grid; // grid-template-columns: 100px 100px 100px 100px;
+        grid-template-columns: repeat(4, 100px); // grid-template-rows:50px 50px 40px;
+        grid-template-rows: repeat(2, 50px) 40px;
+
+        grid-template-areas: "header header header header" "main main . slider" "footer footer footer footer"; // . 代表空网格单元
+        grid-gap: 12px 14px;
+
+
+        div {
+            background-color: #ddd;
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div id="date">
+        <div class="a">1111111</div>
+        <div class="b">22222222</div>
+        <div class="c">33333333</div>
+        <div class="d">44444444</div>
+    </div>
+</body>
+
+</html>
