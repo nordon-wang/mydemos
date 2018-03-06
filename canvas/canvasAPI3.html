@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #000;
+        }
+
+        canvas {
+            background-color: #e5e5e5;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+
+    <script>
+        function d2a(ang) {
+            return ang * Math.PI / 180;
+        }
+        window.onload = () => {
+            let canvas = document.getElementById('canvas');
+            let cs = canvas.getContext('2d');
+
+            // 旋转
+            // cs.rotate(d2a(20));
+            // cs.fillStyle = '#f0f';
+            // cs.fill();
+            // // cs.rect(200,200,200,200);
+            // cs.fillRect(0,0,canvas.width,canvas.height);
+            // cs.strokeRect(200,200,200,200);
+
+            // 按照中心点旋转
+            cs.strokeRect(100, 100, 300, 200);
+            let rotate = 0;
+            // strokeRect 、 rotate 和 translate执行顺序 
+            // 是按照strokeRect 、 rotate 、 translate顺序执行
+            setInterval(() => {
+                cs.clearRect(0,0,canvas.width,canvas.height);
+                cs.save(); //保存
+
+                rotate++;
+                cs.translate(250, 200);
+                cs.rotate(d2a(rotate));
+                cs.strokeRect(-150, -100, 300, 200);
+
+                cs.restore(); //恢复
+
+            }, 16);
+        }
+    </script>
+</body>
+
+</html>

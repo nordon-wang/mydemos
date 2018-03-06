@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas获取像素</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #000;
+        }
+
+        canvas {
+            background-color: #e5e5e5;
+        }
+    </style>
+</head>
+
+<body>
+    <p>
+        <input type="button" name="" value="变灰" id="btn1">
+        <input type="button" name="" value="变黄" id="btn2">
+        <input type="button" name="" value="变绿" id="btn3">
+        <input type="button" name="" value="保存" id="btn4">
+    </p>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <!--<img src="img1.jpg" alt="" id="img1" style="display:none;">-->
+    <img src="" id="img" alt="">
+
+    <script>
+        function d2a(ang) {
+            return ang * Math.PI / 180;
+        }
+        window.onload = () => {
+            let btn1 = document.getElementById('btn1');
+            let btn2 = document.getElementById('btn2');
+            let btn3 = document.getElementById('btn3');
+            let saveImg = document.getElementById('btn4');
+            let myImg = document.getElementById('img');
+
+            let canvas = document.getElementById('canvas');
+            let cs = canvas.getContext('2d');
+
+            // 每个像素占4位 分别为 r g b a 每一位范围是 0~255
+            let $img = new Image();
+            $img.src = 'img1.jpg';
+
+            $img.onload = (ev) => {
+
+                cs.drawImage($img, 0, 0);
+
+                // 获取像素区域
+                // 必须在服务器环境下 因为跨域
+                let imgData = cs.getImageData(0, 0, canvas.width, canvas.height);
+
+                // console.log(imgData.data.length);
+                // imgData.data 是一个存储当前像素值的数据
+                // 数据的长度为1920000 , canvas画布大小为800 * 600
+                // 又因为每个像素占4为 所以数组的长度为 800 * 600 * 4
+
+                // 若是查询某一个像素点的像素 就需要获取4位 分别为 r g b a
+
+                // 获取某一个点的像素 data[(r*w+c)*4]
+                // r 是代表多少行
+                // w 是代表canvas的宽度
+                // c 是代表多少列
+
+                // 获取0行0列 就是第一个点的像素
+                // console.log(imgData.data[0],imgData.data[1],imgData.data[2],imgData.data[3]);
+
+                // 获取最后一行的第一列点的像素
+                // console.log(imgData.data[(599 * 800 + 0) * 4], imgData.data[(599 * 800 + 0) * 4], imgData.data[(599 * 800 + 0) * 4], imgData.data[(599 * 800 + 0) * 4]);
+
+                // 变灰
+                btn1.onclick = () => {
+                    // 改变一张照片的像素
+                    for (let i = 0; i < canvas.height; i++) {
+                        for (let j = 0; j < canvas.width; j++) {
+                            // let a = imgData.data[(i*canvas.width + j) * 4 + 3]; //由于不更改透明度 暂时无用
+                            // rgb 三个值一样 显示为灰色
+                            let avg = (imgData.data[(i * canvas.width + j) * 4] + imgData.data[(i * canvas.width + j) * 4 + 1] + imgData.data[(i * canvas.width + j) * 4 + 2]) / 3;
+                            imgData.data[(i * canvas.width + j) * 4] = imgData.data[(i * canvas.width + j) * 4 + 1] = imgData.data[(i * canvas.width + j) * 4 + 2] = avg;
+                        }
+                    }
+
+                    // 改变图片
+                    cs.putImageData(imgData, 0, 0);
+                }
+                // 变黄 即b的颜色为0
+                btn2.onclick = () => {
+                    // 改变一张照片的像素
+                    for (let i = 0; i < canvas.height; i++) {
+                        for (let j = 0; j < canvas.width; j++) {
+                            // let a = imgData.data[(i*canvas.width + j) * 4 + 3]; //由于不更改透明度 暂时无用
+                            // b为0  显示为黄色
+                            imgData.data[(i * canvas.width + j) * 4 + 2] = 0;
+                        }
+                    }
+
+                    // 改变图片
+                    cs.putImageData(imgData, 0, 0);
+                }
+                // 变黄 即b的颜色为0
+                btn3.onclick = () => {
+                    // 改变一张照片的像素
+                    for (let i = 0; i < canvas.height; i++) {
+                        for (let j = 0; j < canvas.width; j++) {
+                            // let a = imgData.data[(i*canvas.width + j) * 4 + 3]; //由于不更改透明度 暂时无用
+                            // b为0  显示为黄色
+                            imgData.data[(i * canvas.width + j) * 4] = 0;
+                            imgData.data[(i * canvas.width + j) * 4 + 2] = 0;
+                        }
+                    }
+
+                    // 改变图片
+                    cs.putImageData(imgData, 0, 0);
+                }
+
+                // 保存
+                saveImg.onclick = () =>{
+                    let imgUrl = canvas.toDataURL();
+                    myImg.src = imgUrl;
+                }
+            }
+
+
+
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #000;
+        }
+
+        canvas {
+            background-color: #e5e5e5;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <!--<img src="img1.jpg" alt="" id="img1" style="display:none;">-->
+
+    <script>
+        function d2a(ang) {
+            return ang * Math.PI / 180;
+        }
+        window.onload = () => {
+            let canvas = document.getElementById('canvas');
+            let cs = canvas.getContext('2d');
+
+            // 方法1画图片 (不建议使用 太蠢了)
+            // let img1 = document.getElementById('img1');
+            // cs.drawImage(img1,0,0);
+
+            // 方法2 new Image()
+            // let oImg = new Image();
+            // oImg.src ='img1.jpg';
+            // oImg.onload = ()=>{
+            //     cs.drawImage(oImg,0,0);
+            // }
+
+            // 完整版的drawImage参数
+            // img,sx,sy,sw,sh,dx,dy,dw,dw
+            // img 是图片对象
+            // sx,sy,sw,sh 是从图片源中 截图的位置
+            // dx,dy,dw,dw 将图片画到canvas的位置
+
+
+            // 键盘的上下左右
+            let dir = 'd';
+            document.onkeydown = (ev) => {
+                let keys = {37:'l',38:'u',39:'r',40:'d'};
+                dir = keys[ev.keyCode] || dir;
+                console.log(dir,ev.keyCode);
+            }
+
+        }
+    </script>
+</body>
+
+</html>
