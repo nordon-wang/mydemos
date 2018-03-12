@@ -55,3 +55,45 @@
  * 
  * __filename -- 文件路径
  */
+
+/**
+ *  -- 描述的越详细 优先级越高 没有就会找缺省的
+ * require(dir.js) 
+ * require(dir.json) 
+ * require(dir.node)
+ *  如果省略扩展名 就会默认从模板里去找 依次为 js json node文件
+ *  若是js json node文件都不存在 
+ *  则会继续找 package.json文件(配置文件)  
+ *      package.json中
+ *          {
+ *              main:'default.js'
+ *          }
+ *      则会加载这个default.js
+ *  则会去dir目录下去找 默认找dir目录下的index.js文件进行加载
+ * 
+ * 
+ *  加载系统模块 若是模块名称重复 系统模块的优先级最高
+ * 
+ */
+
+/**
+ * require(moduls)
+ *  这种加载方式 不是加载系统模块 那么会默认去node_moduls目录下去找
+ *  不管这个node_moduls在什么位置 会一直向上找
+ *  都是可以找到的 (就近原则)
+ * 
+ * require(./dir)
+ *      当前目录找
+ * require(../dir)
+ *      当前目录的上一级目录找
+ *  require(/dir)
+ *      以系统的根目录开始找模块 -- 就是以绝对路径的方式找
+ */
+
+/**
+ * 模块缓存
+ *  1.第一次加载某个模块是，node会缓存该模块，以后再加载该模块，
+ *  直接从缓存中取出该模块的module.exports属性(不会再次执行该模块)
+ *  2.如果需要多次执行模块中的代码，一般可以让模块暴露行为(行为)
+ *  3.模块的缓存可以通过require.cache拿到 也可以删除
+ */
