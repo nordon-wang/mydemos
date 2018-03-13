@@ -97,3 +97,30 @@
  *  2.如果需要多次执行模块中的代码，一般可以让模块暴露行为(行为)
  *  3.模块的缓存可以通过require.cache拿到 也可以删除
  */
+
+/**
+ * fs-extra -- fs的扩展
+ */
+
+/**
+ * path(路径操作模块)
+ * 在文件操作的过程中，'最好'使用物理路径(绝对路径)
+ *  path.join(dir1,dir2...) -- 连接多个路径
+ *  path.basename(p,ext) -- 获取文件名
+ *  path.dirname(p) -- 文件夹路径
+ *  path.extname(p) -- 获取文件扩展名
+ *  path.format(obj) && path.parse(p)
+ *  path.relative(from,to) -- 获取from到to的相对路径
+ */
+
+/**
+ * readline 一行一行的读
+ */
+
+/**
+ * 缓冲区
+ *  缓冲区就是内存中操作数据的容器
+ *  只是数据容器而已
+ *  通过缓冲区可以很方便的操作二进制数据
+ *  大文件操作时必须有缓冲区
+ */
