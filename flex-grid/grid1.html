@@ -47,3 +47,70 @@
 </body>
 
 </html>
+
+<!-- 
+
+
+<div  id="date"  >
+  <div class="a">1111111</div>
+  <div class="b">22222222</div>
+  <div class="c">33333333</div>
+  <div class="d">44444444</div>
+</div>
+
+
+............................................................
+
+div#date {
+  display: grid;
+  grid-template-columns: 100px 100px 1fr; //每一列 三个 
+  // grid-template-columns: repeat(2,100px) 1fr; 等价上面的 100px 100px 1fr;
+  grid-template-rows: 50px 40px; // 每一行 两个
+  grid-row-gap: 12px; //行间距
+  grid-column-gap: 20px; //列间距
+  // grid-gap：12px 20px; 是grid-row-gap、grid-column-gap简写
+
+  div {
+    // width: 200px;
+    // height: 40px;
+    background-color: snow;
+  }
+}
+    
+............................................................
+
+div#date {
+
+  .a{
+    grid-area: header;
+  }
+
+  .b{
+    grid-area: main;
+  }
+
+  .c{
+    grid-area: slider;
+  }
+
+  .d{
+    grid-area: footer;
+  }
+  
+  display: grid;
+  // grid-template-columns: 100px 100px 100px 100px;
+  grid-template-columns: repeat(4,100px);
+
+  // grid-template-rows:50px 50px 40px;
+  grid-template-rows:repeat(2,50px) 40px;
+
+  grid-template-areas: "header header header header" 
+      "main main . slider" "footer footer footer footer"; // . 代表空网格单元
+
+  div {
+    background-color: snow;
+  }
+}
+
+............................................................
+-->
