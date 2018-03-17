@@ -47,38 +47,80 @@ const path = require('path');
 
 // 递归打印目录树
 
-let target = path.join(__dirname, process.argv[2] || './');
+// let target = path.join(__dirname, process.argv[2] || './');
+// function load(target, depth) {
+//     let prefix = new Array(depth + 1).join('│ ');
+//     let dirinfos = fs.readdirSync(target);
+//     let dirs = [];
+//     let files = [];
 
-function load(target, depth) {
+//     dirinfos.forEach(info => {
+//         let stats = fs.statSync(path.join(target, info));
 
-    let prefix = new Array(depth + 1).join('│ ');
+//         if (stats.isFile()) {
+//             files.push(info);
+//         } else {
+//             dirs.push(info);
+//         }
+//     });
 
-    let dirinfos = fs.readdirSync(target);
+//     dirs.forEach(dir => {
+//         console.log(`${prefix}├─${dir}`);
+//         load(path.join(target, dir), depth + 1);
+//     });
 
-    let dirs = [];
-    let files = [];
+//     var count = files.length - 1;
+//     files.forEach(file => {
+//         var temp = count-- ? '├' : '└';
+//         console.log(`${prefix}${temp}─${file}`);
+//     });
 
-    dirinfos.forEach(info => {
-        let stats = fs.statSync(path.join(target, info));
+// }
 
-        if (stats.isFile()) {
-            files.push(info);
-        } else {
-            dirs.push(info);
-        }
-    });
+// load(target, 0);
 
-    dirs.forEach(dir => {
-        console.log(`${prefix}├─${dir}`);
-        load(path.join(target, dir), depth + 1);
-    });
+// 创建文件夹
+// fs.mkdir(path.join(__dirname,'heh'));
 
-    var count = files.length - 1;
-    files.forEach(file => {
-        var temp = count-- ? '├' : '└';
-        console.log(`${prefix}${temp}─${file}`);
-    });
+// const mikdirs = require('./mikdirs');
 
-}
+// mikdirs('./demo1/demo2', err =>{
+//     console.log(err);
+// });
 
-load(target, 0);
+// mikdirs(path.join(__dirname,'./demo1/demo2'), err =>{
+//     console.log(err);
+// });
+
+/**
+ * 文件复制
+ */
+// fs.readFile(path.join(__dirname,'API.js'),(err,data)=>{
+//     if(err){
+//         console.log(err);
+//     }
+//     fs.writeFile('E:\\api.js',data)
+// });
+
+// 大文件 使用数据流
+// 此时只是创建文件的读取流，并没有真的读出正式的数据，只是开始了读取文件的任务
+let reader = fs.createReadStream('E:\\m\\h.mp4');
+let write = fs.createWriteStream('E:\\m\\h22.mp4')
+// let total = 0;
+// fs.stat('E:\\m\\h.mp4', (err, stats) => {
+//     // stats存在则存在
+//     if(stats){
+//         reader.on('data', (chunk) => {
+//             // chunk 是一个buffer(字符数组)
+//             write.write(chunk,err=>{
+//                 console.log('write', ((total += chunk.length) / stats.size) * 100);
+//             })
+//         });
+//         reader.on('end',()=>{
+//             console.log('结束');
+//         })
+//     }
+// });
+// 使用pipe写
+reader.pipe(write);
+
