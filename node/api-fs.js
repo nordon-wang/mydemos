@@ -2,7 +2,7 @@
  * fs
  *  同步的错误才可以使用 try catch捕获异常
  */
-
+const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
@@ -104,8 +104,8 @@ const path = require('path');
 
 // 大文件 使用数据流
 // 此时只是创建文件的读取流，并没有真的读出正式的数据，只是开始了读取文件的任务
-let reader = fs.createReadStream('E:\\m\\h.mp4');
-let write = fs.createWriteStream('E:\\m\\h22.mp4');
+// let reader = fs.createReadStream('E:\\m\\h.mp4');
+// let write = fs.createWriteStream('E:\\m\\h22.mp4');
 // let total = 0;
 // fs.stat('E:\\m\\h.mp4', (err, stats) => {
 //     // stats存在则存在
@@ -123,4 +123,34 @@ let write = fs.createWriteStream('E:\\m\\h22.mp4');
 // });
 // 使用pipe写
 // reader.pipe(write);
+
+/**
+ * 读取所有文件夹
+ */
+
+http.createServer((req, res) => {
+
+    if (req.url == 'favicon.ico') {
+        return;
+    }
+
+    fs.readdir(__dirname, (err, files) => {
+        // console.log(files);
+
+        let myFiles = [];
+
+        files.forEach((file, index) => {
+            let myStat = fs.statSync(path.join(__dirname, file), (err) => {
+            });
+            if (myStat.isDirectory()) {
+                myFiles.push(file);
+            }
+        });
+        // console.log(myFiles);
+
+
+        res.end('222');
+    })
+
+}).listen(8989);
 
