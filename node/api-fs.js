@@ -128,29 +128,26 @@ const path = require('path');
  * 读取所有文件夹
  */
 
-http.createServer((req, res) => {
+// http.createServer((req, res) => {
 
-    if (req.url == 'favicon.ico') {
-        return;
-    }
+//     if (req.url == 'favicon.ico') {
+//         return;
+//     }
 
-    fs.readdir(__dirname, (err, files) => {
-        // console.log(files);
+//     fs.readdir(__dirname, (err, files) => {
 
-        let myFiles = [];
+//         let myFiles = [];
 
-        files.forEach((file, index) => {
-            let myStat = fs.statSync(path.join(__dirname, file), (err) => {
-            });
-            if (myStat.isDirectory()) {
-                myFiles.push(file);
-            }
-        });
-        // console.log(myFiles);
+//         files.forEach((file, index) => {
+//             let myStat = fs.statSync(path.join(__dirname, file), (err) => {
+//             });
+//             if (myStat.isDirectory()) {
+//                 myFiles.push(file);
+//             }
+//         });
 
+//         res.end('end');
+//     })
 
-        res.end('222');
-    })
-
-}).listen(8989);
+// }).listen(8989);
 
