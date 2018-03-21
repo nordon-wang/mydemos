@@ -10,6 +10,21 @@
 
 <body>
     <h1><%= name %></h1>
+    <div>
+        <%= josns.arr[0].name  %>
+        <%= josns.arr[0].age  %>
+    </div>
+    <% for(var i=0;i<josns.arr.length;i++){ %>
+        <h1><%= name %></h1>
+        <h4><%= josns.arr[i].name %></h4>
+    <% } %>
+    <% if (name) { %>  
+    <ul>  
+        <% names.forEach(function(name){ %>  
+        <li foo='<%= name + "'" %>'><%= name %></li>  
+        <% }) %>  
+    </ul>  
+    <% } %>  
 </body>
 
 </html>

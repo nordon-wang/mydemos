@@ -1,10 +1,44 @@
+doctype
 html
-    header
-        style
-        script
+    head
+        meta(charset="utf-8")
+        title jade语法
+        style.
+            div
+                {height:40px;color:#f0f;}
+        script.
+            window.onload = function(){
+                document.getElementById('did').style.width="100px"
+                document.getElementById('did').style.height="100px"
+                document.getElementById('did').style.backgroundColor="#f0f"
+
+            }
     body
-        div
-            ul
-                li
-                li
-        div
+        |输出内容
+        div#did
+        div(style=styles)
+        div(class=classArr)
+        div!=htmls
+        div=htmls
+        div #{htmls}
+
+        -var a = 1
+        -var b = 2
+        div=a+b
+        div #{a+b}
+        -for(var i=0;i<classArr.length;i++)
+            div=classArr[i]
+        
+        -if(classArr.length > 3)
+            div classArr大
+        -else
+            div classArr小
+
+        case classArr.length
+            when 1
+                div aaaa
+            when 2
+                div bbbbbb
+            default
+                div ccccc
+        
