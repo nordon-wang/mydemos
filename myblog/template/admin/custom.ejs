@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <% include comppnents/public_top.ejs %>
+        <div>
+            <!--enctype="multipart/form-data"-->
+            <form action="?" method="post" enctype="multipart/form-data">
+                <p>
+                    title:<input type="text" name="title" value="">
+                </p>
+                <p>
+                    description:<textarea rows="5" cols="20" name="description"></textarea>
+                </p>
+                <p>
+                    src:<input type="file" name="f1">
+                </p>
+                <input type="submit" value="提交">
+            </form>
+        </div>
+        <div>
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>标题</th>
+                        <th>描述</th>
+                        <th>头像</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i=0; i< customs.length; i++){  %>
+                        <tr style="text-align:center;">
+                            <td>
+                                <%= customs[i].ID %>
+                            </td>
+                            <td>
+                                <%= customs[i].title %>
+                            </td>
+                            <td>
+                                <%= customs[i].description %>
+                            </td>
+                            <td>
+                                <img src="/upload/<%= customs[i].src %>" style="width:50px;height:50px;" alt="">
+                            </td>
+                            <td>
+                                <a href="?act=mod&id=<%= customs[i].ID %>">编辑</a>
+                                <a href="?act=del&id=<%= customs[i].ID %>" onclick="return confirm('真的要删除<%= customs[i].ID %>？')">删除</a>
+                            </td>
+                        </tr>
+                        <%}%>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <% if(typeof mod_data != 'undefined' ){ %>
+                <form action="?" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="mod_id" value="<%= mod_data[0].ID %>">
+                    <p>
+                        title:<input type="text" name="title" value="<%= mod_data[0].title %>">
+                    </p>
+                    <p>
+                        description:<textarea rows="5" cols="20" name="description">
+                        <%= mod_data[0].description %>
+                    </textarea>
+                    </p>
+                    <p>
+                        头像:<input type="file" name="f1">
+                    </p>
+                    <input type="submit" value="提交">
+                    <a href="/admin/custom">取消</a>
+                </form>
+                <% } %>
+        </div>
+</body>
+
+</html>

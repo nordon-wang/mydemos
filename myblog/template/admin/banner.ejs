@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <% include comppnents/public_top.ejs %>
+    <div>
+        <form action="?" method="post">
+            <p>
+                title:<input type="text" name="title" value="">
+            </p>
+            <p>
+                description:<textarea rows="5" cols="20" name="description"></textarea>
+            </p>
+            <p>
+                href:<input type="text" name="href" value="">
+            </p>
+            <input type="submit" value="提交">
+        </form>
+    </div>
+    <div>
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>标题</th>
+                    <th>描述</th>
+                    <th>链接</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                 <% for(var i=0; i< banners.length; i++){  %> 
+                    <tr style="text-align:center;">
+                        <td><%= banners[i].ID %></td>
+                        <td><%= banners[i].title %></td>
+                        <td><%= banners[i].description %></td>
+                        <td><%= banners[i].href %></td>
+                        <td>
+                            <a href="?act=mod&id=<%= banners[i].ID %>">编辑</a>
+                            <a href="?act=del&id=<%= banners[i].ID %>" onclick="return confirm('真的要删除<%= banners[i].ID %>？')">删除</a>
+                        </td>
+                    </tr>
+                <%}%>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <% if(typeof mod_data != 'undefined' ){ %>
+             <form action="?" method="post">
+                 <input type="hidden" name="mod_id" value="<%= mod_data[0].ID %>">
+                <p>
+                    title:<input type="text" name="title" value="<%= mod_data[0].title %>">
+                </p>
+                <p>
+                    description:<textarea rows="5" cols="20" name="description">
+                        <%= mod_data[0].description %>
+                    </textarea>
+                </p>
+                <p>
+                    href:<input type="text" name="href" value="<%= mod_data[0].href %>">
+                </p>
+                <input type="submit" value="提交">
+                <a href="/admin/banner">取消</a>
+            </form>
+        <% } %>
+    </div>
+</body>
+</html>

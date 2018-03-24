@@ -158,3 +158,8 @@ select * from my_collate_ci order by name;
 -- 有数据后修改校对集
 alter table my_collate_ci collate = utf8_bin;
 alter table my_collate_ci collate = utf8_general_ci;
+
+
+SELECT class,count(class),AVG(score),max(score),min(score),sum(score) from demo_table where class = 1 group by class order by AVG(score) desc;
+
+-- 子句是有顺序的  WHERE ... GROUP BY ... ORDER BY ... (ACS/DESC) LIMIT ...;
