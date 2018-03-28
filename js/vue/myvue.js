@@ -95,6 +95,9 @@ function Vue(options) {
                                data[mykey] = childNodes[i].value;
                                ev.emit(mykey)
                            }
+                           ev.on(mykey,()=>{
+                                childNodes[i].value = data[mykey];
+                           })
 
                         }
                     }
