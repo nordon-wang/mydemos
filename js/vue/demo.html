@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{ msg }}</h1>
+        <h1>{{ foo }}</h1>
+        <h1>{{ bar }}</h1>
+        <div>
+            <p>
+                <b>{{msg}}</b>
+            </p>
+        </div>
+        <input type="text" v-model="bar" name="" value="">
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/1.12.2/jquery.min.js"></script>
+    <script src="myvue.js"></script>
+    <script>
+    var app 
+        window.onload = () => {
+             app = new Vue({
+                el: '#app',
+                data: {
+                    msg: 'my msg',
+                    foo: 'my foo',
+                    bar: 'my bar'
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
