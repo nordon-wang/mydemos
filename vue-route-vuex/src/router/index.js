@@ -13,68 +13,65 @@ import error from '@/components/error'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
-      path: '/h',
-      //name:'hi',//若是通过name传递参数 这个name值 无效果 需要在子理由里面配置
-      component: HelloWorld, //这个组件初始化 必须要 , 否则显示不出页面
-      children:[{
-        path:'/',
-        name:'hi',
-        //component:HelloWorld //这个可以不用显示 会重复将需要渲染的页面渲染两次
-      },{
-        path:'hi1',
-        name:'hi1',
-        component:hi1
-      },{
-        path:'hi2',
-        name:'hi2',
-        component:hi2
-      }]
-    },{
-      path:'/',
-      name:'indexVue',
-      components:{ // 若是多页面的 需要使用components
-        default:indexVue,
-        left:left,
-        right:right
-      },
-      alias:'/aliasindex' //alias别名使用 
-    },{
-      path:'/m', //和'/'对应 只是调换下位置
-      name:'indexVue',
-      components:{ // 若是多页面的 需要使用components
-        default:indexVue,
-        left:right,
-        right:left
-      }
-    },{
-      path:'/urlparams/:userId(\\d+)/:userName', //根据url参数 传递参数 -- (\\d+) 是一个正则 用来确保ID为数字
-      component:urlParams,
-      // beforeEnter:(to,from,next) => {
-      //   console.log(to);
-      //   console.log(from);
-      //   // 是否允许跳转 没有next 就不跳转
-      //   // next(); 
-
-      //   //  或者在next() 传递一个参数是否跳转 true跳转 false不跳转
-      //   // next(true);
-
-      //   // 或者在next() 传递一个对象 让其跳转到哪里去
-      //   next({path:'/'}); //跳转至根目录
-      // }
+  routes: [{
+    path: '/h',
+    //name:'hi',//若是通过name传递参数 这个name值 无效果 需要在子理由里面配置
+    component: HelloWorld, //这个组件初始化 必须要 , 否则显示不出页面
+    children: [{
+      path: '/',
+      name: 'hi',
+      //component:HelloWorld //这个可以不用显示 会重复将需要渲染的页面渲染两次
+    }, {
+      path: 'hi1',
+      name: 'hi1',
+      component: hi1
+    }, {
+      path: 'hi2',
+      name: 'hi2',
+      component: hi2
+    }]
+  }, {
+    path: '/',
+    name: 'indexVue',
+    components: { // 若是多页面的 需要使用components
+      default: indexVue,
+      left: left,
+      right: right
     },
-    {
-      path:'/redirect',
-      redirect:'/'
-    },{
-      path:'/goParams/:userId(\\d+)/:userName',
-      redirect:'/urlparams/:userId(\\d+)/:userName'
-    },{
-      path:'*',
-      component:error
+    alias: '/aliasindex' //alias别名使用 
+  }, {
+    path: '/m', //和'/'对应 只是调换下位置
+    name: 'indexVue',
+    components: { // 若是多页面的 需要使用components
+      default: indexVue,
+      left: right,
+      right: left
     }
-  ]
+  }, {
+    path: '/urlparams/:userId(\\d+)/:userName', //根据url参数 传递参数 -- (\\d+) 是一个正则 用来确保ID为数字
+    component: urlParams,
+    // beforeEnter:(to,from,next) => {
+    //   console.log(to);
+    //   console.log(from);
+    //   // 是否允许跳转 没有next 就不跳转
+    //   // next(); 
+
+    //   //  或者在next() 传递一个参数是否跳转 true跳转 false不跳转
+    //   // next(true);
+
+    //   // 或者在next() 传递一个对象 让其跳转到哪里去
+    //   next({path:'/'}); //跳转至根目录
+    // }
+  }, {
+    path: '/redirect',
+    redirect: '/'
+  }, {
+    path: '/goParams/:userId(\\d+)/:userName',
+    redirect: '/urlparams/:userId(\\d+)/:userName'
+  }, {
+    path: '*',
+    component: error
+  }]
 })
 
 /**
@@ -108,7 +105,7 @@ export default new Router({
  *  1. 给每个router-view命名  只有一个可以省略命名 省略的为default
  *  2. 更改对应组件的 components 需要加s
  *  components:{ // 若是多页面的 需要使用components
-*       default:indexVue, //没有命名的 默认显示的区域
+ *       default:indexVue, //没有命名的 默认显示的区域
  *      left:right,  //将组件right显示在命名为name=left的router-view中
  *      right:left //将组件left显示在命名为name=right的router-view中
  *    }
