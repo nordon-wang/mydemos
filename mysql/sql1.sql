@@ -39,10 +39,10 @@ drop database informationtest;
 
 -- 创建表
 create table if not exists mydatabase.student(	-- 显示的将student表放到mydatabase数据库下
-name varchar(10),
-gender varchar(10),
-number varchar(10),
-age int
+	name varchar(10) not null,
+	gender varchar(10) not null,
+	number varchar(10) not null,
+	age int not null
 )charset utf8;
 
 -- 创建数据表
