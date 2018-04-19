@@ -17,7 +17,7 @@
         name:'index-vue',
         data(){
             return{
-
+    
             };
         },
         // computed:mapState(['count','allCount']),

@@ -19,7 +19,6 @@ const mutations = {
   }
 }
 
-
 const getters = {
   count(state){
     console.log(111111)
