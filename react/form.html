@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app"></div>
+    <script src="js/react.development.js"></script>
+    <script src="js/react-dom.development.js"></script>
+    <script src="js/prop-types.js"></script>
+    <script src="js/babel.min.js"></script>
+    <script type="text/babel">
+        class Login extends React.Component {
+            constructor(props){
+                super(props)
+
+                this.state = {
+                    age:18
+                }
+                
+                this.handleSubmit = this.handleSubmit.bind(this)
+                this.handleChange = this.handleChange.bind(this)
+            }
+
+            handleSubmit(event){
+                event.preventDefault();
+                // 通过旧的refs获取username
+                const username = this.refs.username.value
+                // 通过新的refs获取username
+                const pwd = this.pwd.value
+                // 通过状态获取age
+                const {age} = this.state
+
+                console.log(username,pwd,age);
+            }
+
+            handleChange(event){
+                // 由于原生的onchange事件并不是真的在change时触发事件，而是在失去焦点的时候才会触发change事件
+                // react在onChange事件做了优化，会在change的时候就触发事件
+                const age = event.target.value
+               this.setState({
+                   age
+               })
+
+            }
+
+            render(){
+                return (
+                    <form action="" method="get" onSubmit={this.handleSubmit}>
+                        <p>
+                            username: <input type="text" ref="username" />
+                        </p>
+                        <p>
+                            password: <input type="password" ref={input => this.pwd = input} />
+                        </p>
+                        <p>
+                            age: <input type="number" value={this.state.age} onChange={this.handleChange} />
+                        </p>
+                        <p>
+                            <input type="submit" value="login" />
+                        </p>
+                    </form>
+                )
+            }
+        }
+
+
+        ReactDOM.render(<Login/>,document.getElementById('app'))
+        
+    </script>
+</body>
+</html>

@@ -17,6 +17,7 @@
     <script src="js/babel.min.js"></script>
     <script type="text/babel">
         // 定义组件
+        // 组件状态的更改必须在当前组件中进行
         class App extends React.Component{ 
             
             constructor(props){
@@ -25,6 +26,16 @@
                 this.state = {
                     todos:['111','222','333']
                 }
+
+                this.addTodo = this.addTodo.bind(this)
+            }
+
+            addTodo(todo){
+                let {todos} = this.state
+                todos.unshift(todo)
+                this.setState({
+                    todos
+                })
             }
 
             render(){ 
@@ -32,7 +43,7 @@
                 return (
                     <div>
                         <h1>this is todolist demo</h1>
-                        <Add count={todos.length}/>
+                        <Add count={todos.length} addTodo={this.addTodo} />
                         <List todos={todos} />
                     </div>
                 ) 
@@ -46,14 +57,19 @@
                 this.handleAdd = this.handleAdd.bind(this)
             }
             handleAdd(){
-                console.log(this.refs.content.value);
-                console.log(this.newTodos.value);
-                // this.
+                // console.log(this.refs.content.value);
+                // <input  type="text" ref="content" /> &nbsp;&nbsp;
+                // console.log(this.newTodos.value);
+                const data = this.newTodos.value
+                if(!data){
+                    return false;
+                }
+                this.newTodos.value = ''
+                this.props.addTodo(data)
             }
             render(){
                 return (
                     <div>
-                       <input  type="text" ref="content" /> &nbsp;&nbsp;
                        <input  type="text" ref={inputValue => this.newTodos = inputValue} /> &nbsp;&nbsp;
                        <button onClick={this.handleAdd}>按钮#{this.props.count + 1}</button>
                     </div>
@@ -61,14 +77,14 @@
             }
         }
         Add.propTypes = {
-            count:PropTypes.number.isRequired
+            count:PropTypes.number.isRequired,
+            addTodo:PropTypes.func.isRequired
         }
         
         class List extends React.Component{
             
             render(){
                 let {todos} = this.props
-                console.log(todos);
                 return (
                     <div>
                         <ul>
