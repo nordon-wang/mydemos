@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app"></div>
+    <div id="app2"></div>
+    <script src="js/react.development.js"></script>
+    <script src="js/react-dom.development.js"></script>
+    <script src="js/babel.min.js"></script>
+    <script type="text/babel">
+    	// 工厂函数创建组件
+		function MyCom(){
+			return <h2>工厂函数创建组件</h2>			
+		}
+
+		// class定义组件
+		class MyCom2 extends React.Component{
+			render(){
+				return <h3>class定义组件</h3>
+			}
+		}
+    	
+    	// 渲染组件标签
+    	ReactDOM.render(<MyCom />,document.getElementById('app'))
+    	ReactDOM.render(<MyCom2 />,document.getElementById('app2'))
+
+
+
+
+        
+    </script>
+</body>
+</html>

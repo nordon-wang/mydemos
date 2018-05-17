@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app"></div>
+    <div id="app2"></div>
+    <script src="js/react.development.js"></script>
+    <script src="js/react-dom.development.js"></script>
+    <script src="js/prop-types.js"></script>
+    <script src="js/babel.min.js"></script>
+    <script type="text/babel">
+        //创建组件
+        /* function Person(props) {
+        	return (
+        		<ul>
+        			<li>姓名:{props.name}</li>
+        			<li>性别:{props.sex}</li>
+        			<li>年龄:{props.age}</li>
+        		</ul>
+    		)
+        } */
+
+        // class创建
+        class Person extends React.Component{
+			render(){
+				return (
+	        		<ul>
+	        			<li>姓名:{this.props.name}</li>
+	        			<li>性别:{this.props.sex}</li>
+	        			<li>年龄:{this.props.age}</li>
+	        		</ul>
+	    		)
+			}
+    	}
+		
+		//属性默认值
+        Person.defaultProps = {
+			sex:'man',
+			age:18
+    	}
+
+    	//属性的类型和必填
+    	Person.propTypes = {
+			name:PropTypes.string.isRequired,
+			age:PropTypes.number
+    	}
+
+        const p1 = {
+        	name:'nordon',
+        	sex:'man',
+        	age:22
+        }
+        // 渲染组件
+        // ReactDOM.render(<Person name={p1.name} sex={p1.sex} age={p1.age} />,document.getElementById('app'))
+        ReactDOM.render(<Person {...p1} />,document.getElementById('app'))
+
+        const p2 = {
+			name:'lisan'
+    	}	
+        ReactDOM.render(<Person name={p2.name}  age={19}/>,document.getElementById('app2'))
+    </script>
+</body>
+</html>

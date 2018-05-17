@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script src="js/react.development.js"></script>
+    <script src="js/react-dom.development.js"></script>
+    <script src="js/prop-types.js"></script>
+    <script src="js/babel.min.js"></script>
+    <script type="text/babel">
+        // 定义组件
+        class App extends React.Component{ 
+            
+            constructor(props){
+                super(props)
+
+                this.state = {
+                    todos:['111','222','333']
+                }
+            }
+
+            render(){ 
+                const {todos} = this.state
+                return (
+                    <div>
+                        <h1>this is todolist demo</h1>
+                        <Add count={todos.length}/>
+                        <List todos={todos} />
+                    </div>
+                ) 
+            }
+        }
+         
+        class Add extends React.Component{ 
+            constructor(props){
+                super(props)
+
+                this.handleAdd = this.handleAdd.bind(this)
+            }
+            handleAdd(){
+                console.log(this.refs.content.value);
+                console.log(this.newTodos.value);
+                // this.
+            }
+            render(){
+                return (
+                    <div>
+                       <input  type="text" ref="content" /> &nbsp;&nbsp;
+                       <input  type="text" ref={inputValue => this.newTodos = inputValue} /> &nbsp;&nbsp;
+                       <button onClick={this.handleAdd}>按钮#{this.props.count + 1}</button>
+                    </div>
+                )
+            }
+        }
+        Add.propTypes = {
+            count:PropTypes.number.isRequired
+        }
+        
+        class List extends React.Component{
+            
+            render(){
+                let {todos} = this.props
+                console.log(todos);
+                return (
+                    <div>
+                        <ul>
+                            {todos.map( (item,index) => <li key={index}>{item}</li> )}
+                        </ul>
+                    </div>
+                )
+            }
+        }
+        // name:PropTypes.string.isRequired,
+        List.propTypes = {
+            todos:PropTypes.array.isRequired
+        }
+
+        // 渲染组件
+    	ReactDOM.render(<App/>,document.getElementById('app'))
+    </script>
+</body>
+
+</html>
