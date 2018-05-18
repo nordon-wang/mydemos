@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app"></div>
+    <script src="js/react.development.js"></script>
+    <script src="js/react-dom.development.js"></script>
+    <script src="js/prop-types.js"></script>
+    <script src="js/babel.min.js"></script>
+    <script type="text/babel">
+        class Life extends React.Component {
+            constructor(props){
+                super(props)
+
+                this.state = {
+                    color:'#f00',
+                    transition:'all 2s',
+                    opacity:1
+                }
+
+                this.changeState = this.changeState.bind(this)
+            }
+
+            changeState(){
+                let {opacity} = this.state
+                if(opacity){
+                    opacity = 0
+                }else{
+                    opacity = 1
+                }
+                this.setState({
+                    color:'#000',
+                    opacity
+                })
+            }
+
+            render(){
+                const {msg} = this.props
+                const {color,transition,opacity} = this.state
+                const {...style} = this.state
+                console.log(style);
+                
+                return (
+                    <div>
+                        <h2 style={style} >{msg}</h2>
+                        <button onClick={this.changeState}>切换状态</button>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<Life msg="动画组件"/>,document.getElementById('app'))
+
+    </script>
+</body>
+</html>
